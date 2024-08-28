@@ -1,6 +1,16 @@
-pipeline:
-  build:
-    image: node:14
-    commands:
-      - npm install
-      - npm test
+kind: pipeline
+type: docker
+name: hello-world
+
+steps:
+- name: docker  
+  image: plugins/docker
+  settings:
+    # registry: docker.io
+    repo: virupaksh98/docker-hello-world
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    tags: 
+      - latest
