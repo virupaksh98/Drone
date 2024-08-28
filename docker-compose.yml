@@ -1,0 +1,39 @@
+version: '3'
+services:
+  drone-server:
+    image: drone/drone:2
+    ports:
+      - "80:80"
+    environment:
+      - DRONE_GITEA_SERVER=https://your-gitea-server.com
+      - DRONE_SERVER_HOST=drone.local
+      - DRONE_SERVER_PROTO=http
+      - DRONE_RPC_SECRET=your-rpc-secret
+      - DRONE_SERVER_SECRET=your-server-secret
+      - DRONE_GITHUB_CLIENT_ID=Ov23lidbf43AMr8NHijT
+      - DRONE_GITHUB_CLIENT_SECRET=8021b2e8723d4a673f955550a6b745c9a6be577e
+
+    volumes:
+      - drone-data:/var/lib/drone
+    networks:
+      - drone
+
+  drone-runner:
+    image: drone/drone-runner-docker:1
+    environment:
+      - DRONE_RPC_SECRET=your-rpc-secret
+      - DRONE_SERVER_URL=http://drone-server
+      - DRONE_RUNNER_CAPACITY=2
+      - DRONE_RUNNER_NAME=default
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - drone
+
+volumes:
+  drone-data:
+    driver: local
+
+networks:
+  drone:
+    driver: bridge
