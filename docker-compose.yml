@@ -12,7 +12,7 @@ services:
       - DRONE_GITHUB_CLIENT_ID=Ov23liJSPj8UGqPUJGXq
       - DRONE_GITHUB_CLIENT_SECRET=62102904cd384c934a2d4fb1813c161c23ac452b
       - DRONE_RPC_SECRET=c86548bf9dbe311d90dad52d2d533428
-      - DRONE_SERVER_HOST=http://drone.domain.com
+      - DRONE_SERVER_HOST=http://localhost
       - DRONE_SERVER_PROTO=https
     restart: always
 
